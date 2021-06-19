@@ -1,0 +1,19 @@
+@keyframes move-mockup {
+    100% {
+        transform: translateX(-60px) rotate( -10deg);
+    }
+}
+
+@keyframes move-cc {
+    100% {
+        transform: translateX(145px) rotate( 115deg);
+    }
+}
+
+.h-container .cc {
+    animation: move-cc 2s 1s both;
+}
+
+.mockup-container>img {
+    animation: move-mockup 2s 1s both;
+}

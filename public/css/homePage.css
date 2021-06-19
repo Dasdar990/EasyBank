@@ -1,0 +1,633 @@
+/*Text Styles*/
+
+
+/*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;1,700&display=swap');*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+html[data-overflow="hidden"] {
+    overflow-y: hidden;
+}
+
+html[data-overflow="auto"] {
+    overflow-y: auto;
+}
+
+body {
+    background: #121212;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.89);
+    margin: 0;
+    z-index: 0;
+}
+
+h2 {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.69);
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 0.8rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container h1 {
+    font-size: 1.5em;
+    max-width: 450px;
+}
+
+a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.89);
+    font-weight: 400;
+}
+
+a:hover {
+    color: #2BC56B;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.active {
+    color: #2BC56B;
+    font-weight: 700;
+}
+
+
+/* NAVBAR*/
+
+nav {
+    position: fixed;
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #121212;
+    padding: 5px 0;
+    z-index: 10;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    padding-right: 1vw;
+}
+
+#logo {
+    padding-left: 3vw;
+    cursor: pointer;
+}
+
+#mobile-logo {
+    display: none;
+    padding-left: 1vw;
+    cursor: pointer;
+}
+
+.navigation * {
+    margin: 0 15px;
+}
+
+.navigation img {
+    display: none;
+    cursor: pointer;
+}
+
+
+/**/
+
+.button {
+    background: #2BC56B;
+    border-radius: 5px;
+    color: #000000;
+    padding: 8px 27px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+
+/*HEADER*/
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+    display: flex;
+    height: calc(100vh - 60px);
+    width: 100%;
+}
+
+.h-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 1500px;
+    font-size: 2em;
+    z-index: 1;
+    margin-top: auto;
+    padding: 0 10px !important;
+}
+
+.h-container h1 {
+    max-width: 500px;
+    font-size: 1.7em;
+}
+
+#discover {
+    max-width: 120px;
+}
+
+.content-img {
+    width: 300px;
+}
+
+#vault {
+    max-width: 400px;
+    max-height: 350px;
+}
+
+.h-container .cc {
+    position: absolute;
+    transform: rotate(90deg);
+    z-index: 1;
+    bottom: 25%;
+    margin: 0;
+    min-width: 300px;
+    min-height: 145px;
+    font-size: 25px;
+}
+
+.h-container .cc .row>img {
+    width: 45px;
+}
+
+.mockup-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.mockup-container>img {
+    z-index: 2;
+}
+
+.wave-container {
+    display: flex;
+    width: 100%;
+    margin-top: auto;
+}
+
+#wave {
+    width: 100%;
+}
+
+
+/*SECTIONS*/
+
+section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 90vh;
+}
+
+.snd-back {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1500px;
+    padding: 30px;
+}
+
+.plans-main-text {
+    text-align: center;
+    font-size: 3.5em;
+}
+
+.plans-secondary-text {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: 400;
+    font-size: 1.6em;
+    color: rgba(255, 255, 255, 0.69);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 15vh 10%;
+}
+
+.container h1 {
+    margin: 0;
+}
+
+
+/*PRICING CARDS*/
+
+.plans-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 325px;
+    height: 435px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.89);
+    border-radius: 3px;
+}
+
+.plans-card>* {
+    margin: 5px 25px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.price {
+    display: flex;
+    font-size: 2.5rem;
+}
+
+.tiny {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.69);
+    margin: 0 3px auto 3px;
+}
+
+.plans-card>.button {
+    margin-top: auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plans-card .button img {
+    height: 16px;
+    width: 16px;
+    margin-left: 5px;
+}
+
+.plans-card>ul {
+    padding-bottom: 40px;
+    font-weight: 400;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+li>img {
+    width: 26px;
+    height: 26px;
+    margin-right: 10px;
+}
+
+.title-text {
+    text-align: center;
+    font-size: 3em;
+}
+
+.content-list {
+    padding-top: 3vh;
+    color: rgba(255, 255, 255, 0.69);
+    font-weight: 400;
+}
+
+
+/*CREDIT CARDS SECTION*/
+
+#cards .content {
+    position: relative;
+}
+
+#cards .container {
+    flex-direction: column;
+}
+
+.card-row {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.cc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    min-width: 350px;
+    min-height: 195px;
+    background: #121212;
+    padding: 20px;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.89);
+    font-family: "Inconsolata", monospace;
+    user-select: none;
+    margin: 0 80px 0 0;
+    z-index: 0;
+    border-radius: 10px;
+    font-weight: 400;
+    /*transform: translateX(5000px);*/
+    /* animation: move 2s 1s both;
+    transform: translate(600px, 0);
+    */
+}
+
+.pattern {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0px;
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 5;
+}
+
+.row.number {
+    justify-content: flex-end;
+}
+
+.card-row .text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-row .text-container h1 {
+    font-size: 42px;
+}
+
+#cards li {
+    color: rgba(255, 255, 255, 0.69);
+    font-weight: 400;
+}
+
+.span-container img {
+    height: 26px;
+    width: 26px;
+    margin-right: 10px;
+}
+
+
+/*FOOTER*/
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+footer img {
+    width: 300px;
+    height: 110px;
+}
+
+.footer-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.footer-text {
+    text-align: right;
+}
+
+.footer-icons>a {
+    margin: 0 10px;
+}
+
+.footer-icons img {
+    width: 25px;
+    height: 25px;
+}
+
+
+/*MOBILE MENU*/
+
+.mobile-menu {
+    position: absolute;
+    overflow-y: hidden;
+    flex-flow: column;
+    justify-content: space-between;
+    background: #121212;
+    top: 60px;
+    /*height: calc(100vh - 60px);*/
+    height: calc((var(--vh, 1vh) * 100) - 60px);
+    width: 100%;
+    font-size: 30px;
+    font-weight: 500;
+    z-index: 5;
+}
+
+.mobile-menu[data-active='true'] {
+    display: flex;
+}
+
+.mobile-menu[data-active='false'] {
+    display: none;
+}
+
+.mobile-menu-items {
+    margin-top: 80px;
+}
+
+.mobile-menu-items a {
+    margin: 15px 0;
+    padding-left: 5vw;
+    color: rgba(255, 255, 255, 0.69);
+}
+
+a[data-active="true"] {
+    color: #2BC56B;
+    font-weight: 700;
+}
+
+.mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu .button {
+    margin: 0 auto 30px auto;
+    width: 70%;
+    font-weight: 700;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media screen and (max-width: 1000px) {
+    html[data-overflow="hidden"] {
+        overflow-y: hidden;
+    }
+    html[data-overflow="auto"] {
+        overflow-y: auto;
+    }
+    .h-container {
+        padding: 0;
+    }
+    .container {
+        padding: 15vh 0;
+    }
+    .navigation a,
+    .navigation .button {
+        display: none;
+    }
+    .navigation img {
+        display: flex;
+        margin: 0;
+    }
+    body {
+        font-size: 14px;
+    }
+    #vault {
+        margin-bottom: auto;
+        margin-top: 0;
+    }
+    .content-list {
+        padding: 5px 0;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    body {
+        font-size: 16px;
+    }
+    .h-container,
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .h-container>*,
+    .container>* {
+        margin-top: 15vw;
+    }
+    .content {
+        font-size: 14px
+    }
+    #discover {
+        max-width: 100%;
+    }
+    .card-row {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        width: 100%;
+    }
+    .cc {
+        margin: 80px 0 30px 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    footer {
+        flex-direction: column;
+    }
+    .footer-text {
+        text-align: left;
+        align-self: baseline;
+        padding-left: 10px;
+    }
+    footer>div,
+    .footer-icons {
+        margin-top: 20px;
+    }
+    .footer-icons>a:first-child {
+        margin-left: 0;
+    }
+    #logo {
+        display: none;
+    }
+    #mobile-logo {
+        display: flex;
+        padding-left: 5vw;
+    }
+    .navigation img {
+        padding-right: 2vw;
+    }
+    .cc {
+        min-width: 320px;
+        font-size: 25px;
+    }
+    .container {
+        padding-top: 50px;
+    }
+    .card-row .text-container {
+        width: 100%;
+        align-items: center;
+    }
+    .text-container ul {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .cc {
+        min-width: 300px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .title-text {
+        font-size: 2.5rem;
+    }
+}
