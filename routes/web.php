@@ -39,6 +39,15 @@ Route::post('requestAccountData', 'DashController@requestAccountData');
 Route::post('requestLoanCC', 'DashController@requestLoanCC');
 Route::post('requestLoanInfo', 'DashController@requestLoanInfo');
 Route::post('requestSafeDepositInfo', 'DashController@requestSafeDepositInfo');
+Route::post('RequestNewCardModal', 'DashController@RequestNewCardModal');
+Route::post('AddNewCard', 'DashController@AddNewCard');
+Route::post('setAsFavorite', 'DashController@setAsFavorite');
+Route::post('RequestExchangeRates', 'DashController@RequestExchangeRates');
+Route::post('RequestStock', 'DashController@RequestStock');
+Route::post('requestLoading', 'DashController@requestLoading');
+
+
+
 
 
 Route::get('test', 'TestController@test1');

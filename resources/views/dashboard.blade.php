@@ -115,8 +115,7 @@
             </div>
         </div>
         <header>
-            <div class="top-bar">
-            </div>
+            <div class="top-bar"></div>
             <div class="mobile-top-bar">
                 <img class="mobile-logo" src="images/mobile-logo.svg" alt="Logo">
                 <img id="mobile-menu-burger" data-img="open" class="burger-menu" src="images/icons/burger.svg" alt="Burger Icon">

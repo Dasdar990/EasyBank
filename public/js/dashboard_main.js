@@ -7,19 +7,20 @@ window.addEventListener('load', async function() {
 
 function generateInitial() {
     //top bar
+    const top_bar = document.querySelector('.top-bar');
+    const mobile_bar = document.querySelector('.mobile-menu');
 
-    request_topbar().then((json) => {
-        const top_bar = document.querySelector('.top-bar');
-        const mobile_bar = document.querySelector('.mobile-menu');
-        top_bar.appendChild(getChild(json.balance));
-        top_bar.appendChild(getChild(json.profile_info));
-        mobile_bar.prepend(getChild(json.mobile_bar));
-    });
+    if (!top_bar.hasChildNodes())
+        request_topbar().then((json) => {
+            top_bar.appendChild(getChild(json.balance));
+            top_bar.appendChild(getChild(json.profile_info));
+            mobile_bar.prepend(getChild(json.mobile_bar));
+        });
 
     //Generate overview
     const overview_cards_container = document.querySelector('#overview .cards-container');
-    const activity_container = document.querySelector('.activity-container');
-    //change pattern for cards
+    const activity_container = document.querySelector('#overview .activity-container');
+
     requestCC().then((json) => {
         for (let key of json) {
             const elem = overview_cards_container.appendChild(getChild(key));
@@ -58,20 +59,6 @@ function generateSection(id) {
                 requestCCInfo(fav.dataset.number).then((json) => {
                     info_container.appendChild(getChild(json));
                 });
-
-                /*
-                                        for (let key of json) {
-                                            const elem = cards_container.appendChild(getChild(CC_TEMPLATE(key)));
-                                            elem.addEventListener('click', setActiveCard);
-                                            const info = info_container.appendChild(getChild(CARD_INFO_TEMPLATE(key)));
-                                            info.querySelector('.button').addEventListener('click', setAsFavorite);
-                                            if (key.Favorite === '1') {
-                                                //for the first gen
-                                                elem.dataset.active = 'true';
-                                                info.dataset.active = 'true';
-                                            }
-                                        }
-                */
             });
             break;
         case 'Activity':
@@ -122,19 +109,6 @@ function generateSection(id) {
                     requestLoanInfo(fav.dataset.number).then((json) => {
                         info_container.appendChild(getChild(json));
                     });
-
-                    /*
-                    for (let key of json) {
-                        const elem = cards_container.appendChild(getChild(LOANS_TEMPLATE(key)));
-                        elem.addEventListener('click', setActiveCard);
-                        const info = info_container.appendChild(getChild(LOANS_INFO_TEMPLATE(key)));
-                        if (key.Favorite === '1') {
-                            //for the first gen
-                            elem.dataset.active = 'true';
-                            info.dataset.active = 'true';
-                        }
-                    }
-                    */
                 }
             });
             //request safe deposit informations
@@ -146,40 +120,23 @@ function generateSection(id) {
             break;
         case 'Market':
             //add loading cirle
-            const loading = document.querySelector('#stock-market').appendChild(getChild(LOADING_TEMPLATE()));
+            requestLoading().then((json) => {
+                document.querySelector('#stock-market').appendChild(getChild(json));
+            });
             requestExchangeRates().then((json) => {
                 const currency_container = document.querySelector('#market .scroll-container[data-set="currency"]');
-                for (let key in json)
-                    for (let t in json[key]) {
-                        currency_container.appendChild(getChild(CURRENCY_BLOCK_TEMPLATE(key, t, json[key][t])));
-                    }
+                for (let key of json) currency_container.appendChild(getChild(key));
             });
+
             requestStock().then((json) => {
+                console.log(json);
                 const stock_card_container = document.querySelector('#market .scroll-container[data-set="stock"]');
                 const stock_info_container = document.querySelector('#market .stock-info-container');
-                for (let key of json) {
-                    let stock_info = {
-                        trend: '',
-                        name: key.companyName,
-                        symbol: key.symbol,
-                        price: key.latestPrice,
-                        change: key.change,
-                        changePercent: (key.changePercent * 100).toFixed(3),
-                        favorite: 'false',
-                        high: key.high,
-                        low: key.low,
-                        pe: key.peRatio,
-                        week52High: key.week52High,
-                        week52Low: key.week52Low,
-                        volume: key.volume,
-                        cap: ''
-                    };
-                    key.symbol === 'AAPL' ? (stock_info.favorite = 'true') : (stock_info.favorite = 'false');
-                    key.change > 0 ? (stock_info.trend = 'up') : (stock_info.trend = 'down');
-                    const t = stock_card_container.appendChild(getChild(STOCK_CARD_TEMPLATE(stock_info)));
+                for (let key in json) {
+                    const t = stock_card_container.appendChild(getChild(json[key].card));
                     t.addEventListener('click', changeStock);
                     //generate charts and info
-                    stock_info_container.appendChild(getChild(STOCK_INFO_TEMPLATE(stock_info)));
+                    stock_info_container.appendChild(getChild(json[key].info));
                 }
                 //remove loading circle
                 document.querySelector('#loading').remove();

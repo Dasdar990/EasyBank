@@ -197,7 +197,7 @@
                 <span class="active">Safe-deposit</span><span> boxes</span>
             </div>
             <div class="container">
-                <img id="vault" class="content-img" src="images/undraw_vault_9cmw.svg" alt="Vault image">
+                <img id="vault" class="content-img" src="images/safe_box.svg" alt="Vault image">
                 <div>
                     <h1>With a Pro account you can rent a safe-deposit box located in one of our branch</h1>
                     <ul class="content-list">
@@ -223,7 +223,7 @@
                         <li><img src="images/icons/check-s.svg" alt="Check">Flexible interests</li>
                     </ul>
                 </div>
-                <img class="content-img" src="images/undraw_Meeting_re_i53h.svg" alt="Meeting image">
+                <img class="content-img" src="images/loan.svg" alt="Meeting image">
             </div>
         </div>
     </section>

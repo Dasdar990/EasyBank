@@ -84,7 +84,8 @@ function updateCCInfo(elem) {
         const info_container = document.querySelector('#' + id + ' .info-container');
         if (id === 'cards') {
             requestCCInfo(elem.dataset.number).then((json) => {
-                info_container.appendChild(getChild(json));
+                const elem = info_container.appendChild(getChild(json));
+                elem.querySelector('.button').addEventListener('click', setAsFavorite);
             });
         } else {
             requestLoanInfo(elem.dataset.number).then((json) => {
@@ -226,31 +227,36 @@ function changeStock(e) {
 
 //set as favorite card
 function setAsFavorite(e) {
-    const num = e.currentTarget.dataset.num;
-    var data = new FormData();
-    data.append('Number', num);
-    fetch('php/setAsFavorite.php', {
+    const data = { Number: e.currentTarget.dataset.num };
+    fetch('setAsFavorite', {
             method: 'POST',
             credentials: 'same-origin',
-            body: data
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(data)
         })
         .then(onResponse)
         .then(async(json) => {
-            if (json === 'Success') {
-                emptyDiv(document.querySelector('#cards .cards-container'));
-                emptyDiv(document.querySelector('#cards .info-container'));
-                document.querySelector('#cards').appendChild(getChild(LOADING_TEMPLATE()));
-                generateSection('Cards');
-                await sleep(300);
-                document.querySelector('#cards #loading').remove();
-            }
+            emptyDiv(document.querySelector('#cards .cards-container'));
+            emptyDiv(document.querySelector('#cards .info-container'));
+            emptyDiv(document.querySelector('#overview .cards-container'));
+            emptyDiv(document.querySelector('#overview .activity-container'));
+            emptyDiv(document.querySelector('#overview .info-container'));
+            document.querySelector('#cards').appendChild(getChild(json.success));
+            generateSection('Cards');
+            generateInitial();
+
+            await sleep(300);
+            document.querySelector('#cards #loading').remove();
         });
 }
 
 //create add card modal
 function createModal() {
-    request_bancomat_balance().then((json) => {
-        const modal = document.querySelector('body').prepend(getChild(ADD_CARD_MODAL_TEMPLATE(json.Balance)));
+    RequestNewCardModal().then((json) => {
+        const modal = document.querySelector('body').prepend(getChild(json));
         document.querySelector('.modal-container #close').addEventListener('click', closeModal);
         document.querySelector('.modal-container').addEventListener('click', closeModal);
         document.querySelector('.modal-container .button').addEventListener('click', requestNewCard);
@@ -259,6 +265,7 @@ function createModal() {
 
 //destroy add card modal
 function closeModal(e) {
+    e.stopPropagation();
     if (e.target.id === 'close') document.querySelector('.modal-container').remove();
     else if (e.target.classList.contains('modal-container')) document.querySelector('.modal-container').remove();
 }
@@ -270,21 +277,22 @@ function requestNewCard(e) {
     e.preventDefault();
     const form = elem.closest('form');
     if (!check_fill(inputs)) {
-        fetch('php/add_new_card.php', {
+        fetch('AddNewCard', {
                 method: 'POST',
                 credentials: 'same-origin',
+                'X-CSRF-Token': document.querySelector('input[name=_token]').value,
                 body: new FormData(form)
             })
             .then(onResponse)
             .then((json) => {
-                if (json.Error === undefined) {
+                if (json.error === undefined) {
                     emptyDiv(document.querySelector('.new-card-modal'));
-                    document.querySelector('.new-card-modal').appendChild(getChild(CC_SUCCESS(json)));
+                    document.querySelector('.new-card-modal').appendChild(getChild(json));
                     emptyDiv(document.querySelector('#cards .cards-container'));
                     emptyDiv(document.querySelector('#cards .info-container'));
                     generateSection('Cards');
                 } else {
-                    print_error(inputs[0], json.Error);
+                    print_error(inputs[1], json.error);
                 }
             });
     }

@@ -95,7 +95,6 @@ function requestLoanCC() {
 //request info about loans for logged user
 function requestLoanInfo(num) {
     const data = { Number: num };
-    console.log(data);
     return fetch('requestLoanInfo', {
             method: 'POST',
             credentials: 'same-origin',
@@ -160,10 +159,13 @@ function request_transactions(num) {
 }
 
 //Request for bancomat balance
-function request_bancomat_balance() {
-    return fetch('php/request_bancomat_balance.php', {
+function RequestNewCardModal() {
+    return fetch('RequestNewCardModal', {
             method: 'POST',
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
         })
         .then(onResponse)
         .then((json) => {
@@ -186,13 +188,31 @@ function requestAccountData() {
         });
 }
 
+//returns loading circle view
+function requestLoading() {
+    return fetch('requestLoading', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        })
+        .then(onResponse)
+        .then((json) => {
+            return json;
+        });
+}
+
 //EXTERNAL API REQUESTS
 
 //call php script to request data from coinbase.com (Exchange Rates)
 function requestExchangeRates() {
-    return fetch('php/request_exchange_rates.php', {
+    return fetch('RequestExchangeRates', {
             method: 'POST',
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
         })
         .then(onResponse)
         .then((json) => {
@@ -202,9 +222,12 @@ function requestExchangeRates() {
 
 //call php script to request data from coinbase.com (Exchange Rates)
 function requestStock() {
-    return fetch('php/request_stock.php', {
+    return fetch('RequestStock', {
             method: 'POST',
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
         })
         .then(onResponse)
         .then((json) => {
