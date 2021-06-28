@@ -1,9 +1,7 @@
 async function changeSection(e) {
     const elem = e.currentTarget;
 
-    //check if user is clicking on something that is already active, if so, do nothing
     if (elem.dataset.active !== 'true') {
-        //disable last active section and change attribute of menu element
         document.querySelector('.menu-items-container div[data-active="true"]').dataset.active = 'false';
         //for mobile menu
         document.querySelector('.mobile-menu-items-container div[data-active="true"]').dataset.active = 'false';
@@ -36,16 +34,11 @@ async function changeSection(e) {
     }
 }
 
-//change active cc and shows card info or transaction by that card in overview section
 function setActiveCard(e) {
     const elem = e.currentTarget;
-    //check if clicked card is already clicked, if so, do nothing
     if (elem.dataset.active !== 'true') {
-        //disable last selected card
         elem.closest('.cards-container').querySelector('.cc[data-active="true"]').dataset.active = false;
-        //active the clicked one
         elem.dataset.active = 'true';
-        //check the id of section of the element called and then choose to update transaction list or update the card info
         if (elem.closest('section').id === 'overview') updateTransactionList(elem);
         else updateCCInfo(elem);
     }
@@ -85,7 +78,10 @@ function updateCCInfo(elem) {
         if (id === 'cards') {
             requestCCInfo(elem.dataset.number).then((json) => {
                 const elem = info_container.appendChild(getChild(json));
-                elem.querySelector('.button').addEventListener('click', setAsFavorite);
+                if (elem.querySelector('.button.favorite') !== undefined)
+                    elem.querySelector('.button.favorite').addEventListener('click', setAsFavorite);
+                if (elem.querySelector('.button.delete') !== undefined)
+                    elem.querySelector('.button.delete').addEventListener('click', deleteCard);
             });
         } else {
             requestLoanInfo(elem.dataset.number).then((json) => {
@@ -155,11 +151,9 @@ function search(e) {
     const cards_div = document.querySelector('#activity #filter-cards');
     const filter_container = document.querySelector('#activity .filter-container');
 
-    //check if input is empty
     if (input.length === 0) {
         clearSearch(e);
     } else {
-        //shows the filtered div if is not already visible
         if (search_div.dataset.visible !== 'visible') {
             search_div.dataset.visible = 'visible';
             cards_div.dataset.visible = 'hidden';
@@ -210,13 +204,11 @@ function changeStock(e) {
     const stock_container = document.querySelector('#market .stock-info-container');
 
     if (elem.dataset.active === 'false') {
-        //disable last stock
         document.querySelector(
                 '#market .scroll-container[data-set="stock"] .stock-card[data-active="true"]'
             ).dataset.active =
             'false';
         document.querySelector('#market .stock-info-container div[data-active="true"]').dataset.active = 'false';
-        //active new one
         elem.dataset.active = 'true';
         document.querySelector(
                 '#market .stock-info-container div[data-stock="' + elem.dataset.link + '"]'
@@ -253,6 +245,33 @@ function setAsFavorite(e) {
         });
 }
 
+function deleteCard(e) {
+    const data = { Number: e.currentTarget.dataset.num };
+    fetch('deleteCard', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(data)
+        })
+        .then(onResponse)
+        .then(async(json) => {
+            emptyDiv(document.querySelector('#cards .cards-container'));
+            emptyDiv(document.querySelector('#cards .info-container'));
+            emptyDiv(document.querySelector('#overview .cards-container'));
+            emptyDiv(document.querySelector('#overview .activity-container'));
+            emptyDiv(document.querySelector('#overview .info-container'));
+            document.querySelector('#cards').appendChild(getChild(json.success));
+            generateSection('Cards');
+            generateInitial();
+
+            await sleep(300);
+            document.querySelector('#cards #loading').remove();
+        });
+}
+
 //create add card modal
 function createModal() {
     RequestNewCardModal().then((json) => {
@@ -260,6 +279,14 @@ function createModal() {
         document.querySelector('.modal-container #close').addEventListener('click', closeModal);
         document.querySelector('.modal-container').addEventListener('click', closeModal);
         document.querySelector('.modal-container .button').addEventListener('click', requestNewCard);
+    });
+}
+
+function createAccessLog() {
+    RequestAccessLog().then((json) => {
+        const modal = document.querySelector('body').prepend(getChild(json));
+        document.querySelector('.modal-container #close').addEventListener('click', closeModal);
+        document.querySelector('.modal-container').addEventListener('click', closeModal);
     });
 }
 
@@ -323,6 +350,7 @@ searchClear.addEventListener('click', clearSearch);
 burger_button.addEventListener('click', openCloseMenu);
 
 document.querySelector('#cards #add').addEventListener('click', createModal);
+document.querySelector('#access_logs').addEventListener('click', createAccessLog);
 
 for (let key of showAllTexts) {
     if (key.dataset.link !== undefined) key.addEventListener('click', changeSection);

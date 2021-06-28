@@ -4,6 +4,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 
 
 class SignController extends BaseController {
@@ -16,7 +17,7 @@ class SignController extends BaseController {
             return view('login')->with('csrf_token', csrf_token());
     } 
 
-    public function checkLogin(){
+    public function checkLogin(Request $request){
         
         if (session('id') != null){
             return redirect('dashboard');
@@ -26,8 +27,14 @@ class SignController extends BaseController {
             if ($user !== null){
                 if(Hash::check(request('l-password'), $user->Passwd)){
                     //login success
+                    $user_id = $user->subscription()->first()->Account_ID;
                     Session::put('CF', $user->CF);
-                    Session::put('id', ($user->subscription()->first())->Account_ID);
+                    Session::put('id', $user_id);
+                    AccessLog::create([
+                        'ip' => $request->ip(),
+                        'Account_ID' =>  $user_id
+                    ]);
+
                     return response()->json('success');
                 } return ['error' => view('error')->with('error_text', 'Wrong Username-Password combo')->render()];
             } return ['error' => view('error')->with('error_text', 'Wrong Username-Password combo')->render()];
@@ -65,11 +72,10 @@ class SignController extends BaseController {
         }
     }
 
-    public function checkRegister2(){
+    public function checkRegister2(Request $request){
         if (session('id') != null){
             return redirect('dashboard');
         } else if (session('temp_mail') !== null){
-            //add not empty fields check
 
             $mail = session('temp_mail');
             $cf =  strtoupper(request('cf'));
@@ -78,6 +84,8 @@ class SignController extends BaseController {
             if (!preg_match($CF_FILTER, $cf)){
                 $response['cf'] = view('error')->with('error_text', 'CF is not valid')->render();
             } 
+            if (User::where('CF', $cf)->first() !== null) 
+            $response['cf'] = view('error')->with('error_text', 'CF is already registered!')->render();
             //get password 
             $r_password =request('r-password');
             if (preg_match('/^(?=.*[!@#$%^&*.-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $r_password)){
@@ -121,7 +129,7 @@ class SignController extends BaseController {
                 'Residence'  => $residence,
                 'Phone'  => $phone,
                 'Passwd'  => $pass,
-                'Dob'  => $dob
+                'Dob'  => $date
             ]);
 
             $account = Account::create([
@@ -134,6 +142,60 @@ class SignController extends BaseController {
                 'CF' => $cf,
                 'Account_ID' => $account_id,
                 'StartDate' => $today
+            ]);
+
+            //generate a new card
+            function completed_number($ccnumber, $length) {
+                # generate digits
+                while ( strlen($ccnumber) < ($length - 1) ) {
+                    $ccnumber .= rand(0,9);
+                }
+                # Calculate sum
+                $sum = 0;
+                $pos = 0;
+                $reversedCCnumber = strrev( $ccnumber );
+                while ( $pos < $length - 1 ) {
+                    $odd = $reversedCCnumber[ $pos ] * 2;
+                    if ( $odd > 9 ) {
+                        $odd -= 9;
+                    }
+                    $sum += $odd;
+                    if ( $pos != ($length - 2) ) {
+                        $sum += $reversedCCnumber[ $pos +1 ];
+                    }
+                    $pos += 2;
+                }
+                # Calculate check digit
+                $checkdigit = (( floor($sum/10) + 1) * 10 - $sum) % 10;
+                $ccnumber .= $checkdigit;
+                return $ccnumber;
+            }
+
+            do {
+                $f = true;
+                $cc = completed_number('411516', 16);
+                if (Card::where('Number', $cc)->first() === null) $f = false;
+            } while ($f);
+
+            $month = sprintf("%02d", rand(01, 12));
+            $year = rand(23, 26);
+            $cvv = sprintf("%03d", rand(001, 999));
+            $pin = sprintf("%04d", rand(0001, 9999));
+            $today = date("Y-m-d");
+            
+            $new_card = Card::create([
+                'Status' => 'Active',
+                'Number' => $cc,
+                'Month' => $month,
+                'Year' => $year,
+                'CVV' => $cvv,
+                'PIN' => $pin,
+                'Balance' => 0,
+                'Payment_Date' => NULL,
+                'Card_ID' => 6,
+                'Account_ID' => $account_id,
+                'ActivationDate' => $today,
+                'Favorite' => 1,
             ]);
             
             return array('success' => view('registration_success')->render());

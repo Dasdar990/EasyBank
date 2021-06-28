@@ -1,4 +1,3 @@
-//Load the page, check session variable and if success remove the loading div
 window.addEventListener('load', async function() {
     generateInitial();
     await sleep(300);
@@ -129,7 +128,6 @@ function generateSection(id) {
             });
 
             requestStock().then((json) => {
-                console.log(json);
                 const stock_card_container = document.querySelector('#market .scroll-container[data-set="stock"]');
                 const stock_info_container = document.querySelector('#market .stock-info-container');
                 for (let key in json) {
@@ -146,7 +144,9 @@ function generateSection(id) {
             //Personal Info
             requestAccountData().then((json) => {
                 const personal_info = document.querySelector('#account .personal-info-container');
-                const profile_children = getChildren(json);
+                const profile_image = document.querySelector('#account .profile-image-container');
+                profile_image.appendChild(getChild(json.profile_image));
+                const profile_children = getChildren(json.profile_info);
                 for (let key of profile_children) personal_info.appendChild(key);
             });
             break;

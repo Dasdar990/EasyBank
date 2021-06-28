@@ -1,12 +1,12 @@
 @keyframes move-mockup {
     100% {
-        transform: translateX(-60px) rotate( -10deg);
+        transform: translateX(-60px) rotate(-10deg);
     }
 }
 
 @keyframes move-cc {
     100% {
-        transform: translateX(145px) rotate( 115deg);
+        transform: translateX(145px) rotate(115deg);
     }
 }
 
@@ -16,4 +16,16 @@
 
 .mockup-container>img {
     animation: move-mockup 2s 1s both;
+}
+
+@media screen and (max-width: 550px) {
+    .h-container .cc {
+        animation: move-cc-mobile 2s 1s both;
+    }
+}
+
+@keyframes move-cc-mobile {
+    100% {
+        transform: translateX(70px) rotate(115deg);
+    }
 }

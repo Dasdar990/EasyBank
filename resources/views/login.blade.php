@@ -74,7 +74,6 @@
                                 <img class="form-icon" src="images/icons/visibility.svg" alt="icon" id="visibility" data-type="invisible">
                             </div>
                         </div>
-                        <h3><a href="">Forgot password?</a></h3>
                         <input type="submit" class="form-button" data-sign="login" value="Sign in">
                     </form>
                     <form id="sign-up" data-active="false" action="post">

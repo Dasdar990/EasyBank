@@ -20,7 +20,7 @@ Class Card extends Model{
     ];
     
     public function card_types(){
-        return $this->belongsTo("CardTypes", "Card_ID" ,"ID" );
+        return $this->belongsTo("CardTypes", "Card_ID" ,"ID");
     }
     public function transactions(){
         return $this->hasMany("Transaction", "Number");

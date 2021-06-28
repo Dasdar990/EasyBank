@@ -224,6 +224,10 @@ header {
     display: none;
 }
 
+.button.delete {
+    background: #ef5350 !important;
+}
+
 
 /*MAIN CONTENT*/
 
@@ -444,6 +448,15 @@ form {
     margin: 0 10px;
 }
 
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-container .form-row .form-element {
+    margin-right: 15px;
+}
+
 .form-element {
     display: flex;
     flex-direction: column;
@@ -551,6 +564,9 @@ input::placeholder {
     width: 90%;
     font-family: "Noto Sans KR", sans-serif;
     font-weight: 500;
+    max-height: 25px;
+    max-width: 200px;
+    font-size: 14px;
 }
 
 .activity-container {
@@ -616,7 +632,8 @@ input::placeholder {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    padding: 0 9px;
 }
 
 .details-row h2,
@@ -677,12 +694,16 @@ input::placeholder {
     width: 26px;
 }
 
+.info-container.profile .info-row {
+    cursor: pointer;
+}
+
 .info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .info-row>span:first-child {
@@ -1099,7 +1120,7 @@ input::placeholder {
 
 .personal-info-row {
     min-width: 50%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     margin-right: auto;
 }
 
@@ -1107,6 +1128,7 @@ input::placeholder {
     font-size: 14px;
     font-weight: 400;
     cursor: default;
+    margin: 5px 0;
 }
 
 .personal-info-row h1 {

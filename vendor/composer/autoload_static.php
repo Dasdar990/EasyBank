@@ -500,6 +500,7 @@ class ComposerStaticInitce61be063a1806cfb809c725903cfa39
     );
 
     public static $classMap = array (
+        'AccessLog' => __DIR__ . '/../..' . '/app/Models/AccessLog.php',
         'Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',

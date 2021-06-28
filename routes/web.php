@@ -40,13 +40,13 @@ Route::post('requestLoanCC', 'DashController@requestLoanCC');
 Route::post('requestLoanInfo', 'DashController@requestLoanInfo');
 Route::post('requestSafeDepositInfo', 'DashController@requestSafeDepositInfo');
 Route::post('RequestNewCardModal', 'DashController@RequestNewCardModal');
+Route::post('RequestAccessLog', 'DashController@RequestAccessLog');
 Route::post('AddNewCard', 'DashController@AddNewCard');
 Route::post('setAsFavorite', 'DashController@setAsFavorite');
+Route::post('deleteCard', 'DashController@deleteCard');
 Route::post('RequestExchangeRates', 'DashController@RequestExchangeRates');
 Route::post('RequestStock', 'DashController@RequestStock');
 Route::post('requestLoading', 'DashController@requestLoading');
-
-
 
 
 

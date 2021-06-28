@@ -173,6 +173,20 @@ function RequestNewCardModal() {
         });
 }
 
+function RequestAccessLog() {
+    return fetch('RequestAccessLog', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-TOKEN': csrf_token
+            }
+        })
+        .then(onResponse)
+        .then((json) => {
+            return json;
+        });
+}
+
 //Returns logged user profile info
 function requestAccountData() {
     return fetch('requestAccountData', {

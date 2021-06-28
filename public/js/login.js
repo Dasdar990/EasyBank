@@ -62,7 +62,6 @@ function chooseForm(val) {
                 break;
         }
     } else {
-        //if nothing is set, load login
         document.querySelector('.img-r img').src = 'images/secure_login.svg';
         document.querySelector('.login-text[data-sign="login"]').dataset.active = true;
         document.querySelector('.sign-selector span[data-form="login"]').dataset.active = true;
@@ -133,7 +132,6 @@ function handleSubmit(e) {
         case 'register':
             if (!check_fill(inputs)) {
                 const form = elem.closest('form');
-
                 fetch('sign/register_2', {
                         method: 'POST',
                         'X-CSRF-Token': document.querySelector('input[name=_token]').value,
@@ -142,7 +140,6 @@ function handleSubmit(e) {
                     })
                     .then(onResponse)
                     .then((json) => {
-                        console.log(json);
                         if (json.success === undefined) {
                             for (let key in json) {
                                 for (let i of inputs)

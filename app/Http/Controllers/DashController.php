@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 
 
-
 class DashController extends BaseController {
     
     public function checkAuth(){
@@ -76,7 +75,8 @@ class DashController extends BaseController {
                 'Type' => $info->Type,
                 'Daily_Max' => $info->Daily_Max,
                 'Monthly_Max' => $info->Monthly_Max,
-                'ActivationDate' => $card->ActivationDate
+                'ActivationDate' => $card->ActivationDate,
+                'Favorite' => $card->Favorite
                 ];
                 $response = view('cc_info')->with($view_data)->render();
             
@@ -97,6 +97,21 @@ class DashController extends BaseController {
             $newFav = Card::where("Account_ID", Session::get('id'))->where('Number', 'LIKE', "%{$num}")->first();
             Card::where('Number', $newFav->Number)->update(['Favorite' => 1]);
             return ['success' => view('loading')->render()];
+        }
+    }
+    public function deleteCard(){
+        if (session('id') == null){
+            return redirect('login')->with('csrf_token', csrf_token());
+        } else {
+            $num = request('Number');
+            $cards = Card::where("Account_ID", Session::get('id'))
+            ->join('card_types', 'cards.Card_ID', '=', 'card_types.ID')
+            ->get();
+            $bancomat = $cards->where('Type', 'Bancomat')->first();
+            $debit = Card::where("Account_ID", Session::get('id'))->where('Number', 'LIKE', "%{$num}")->first();;
+            Card::where('Number', $bancomat->Number)->update(['Balance' => $bancomat->Balance + $debit->Balance]);
+            Card::where('Number', $debit->Number)->delete();
+            return ['success' => view('loading')->render()]; 
         }
     }
 
@@ -180,6 +195,20 @@ class DashController extends BaseController {
         }
     }
 
+    public function RequestAccessLog(){
+        if (session('id') == null){
+            return redirect('login')->with('csrf_token', csrf_token());
+        } else {
+            $logs = AccessLog::where('Account_ID', Session::get('id'))->get();
+            return response()
+                   ->json(view('log_modal')
+                   ->with('logs', $logs)
+                   ->render());
+        }
+    }
+
+    
+
     public function AddNewCard(){
         if (session('id') == null){
             return redirect('login')->with('csrf_token', csrf_token());
@@ -211,6 +240,7 @@ class DashController extends BaseController {
                 $ccnumber .= $checkdigit;
                 return $ccnumber;
             }
+            
 
             //check if user is pro, if not check that it has less than 3 debit cards
             $cards = Card::where("Account_ID", Session::get('id'))
@@ -381,7 +411,6 @@ class DashController extends BaseController {
                 }
             }
             return $response;
-                
         }
     }
 
@@ -449,7 +478,10 @@ class DashController extends BaseController {
                 'StartDate' => $subscription->StartDate,
                 'Fee' => $account->Fee                
             ];
-            return response()->json(view('profile_info')->with($view_data)->render());
+            return response()->json(
+                array('profile_info' => view('profile_info')->with($view_data)->render(),
+                'profile_image' => view('profile_img')->with('src', $user_info->Profile_Img)->render())
+            );
         }
     }
 

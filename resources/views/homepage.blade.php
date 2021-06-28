@@ -47,12 +47,12 @@
     </div>
     <header id="home">
         <div class="h-container">
-            <div>
+            <div class="title-container">
                 <h1>Control your finance easily!</h1>
                 <div id="discover" class="button" href="#pricing">Discover now</div>
             </div>
             <div class="mockup-container">
-                <img class="content-img" src="images/iPhoneMockup.png" alt="Mockup">
+                <img class="content-img phone" src="images/iPhoneMockup.png" alt="Mockup">
                 <div class="cc">
                     <img class="pattern" src="images/pattern2.png" alt="Pattern">
                     <div class="overlay"></div>
@@ -197,7 +197,7 @@
                 <span class="active">Safe-deposit</span><span> boxes</span>
             </div>
             <div class="container">
-                <img id="vault" class="content-img" src="images/safe_box.svg" alt="Vault image">
+                <img class="content-img" src="images/safe_box.svg" alt="Vault image">
                 <div>
                     <h1>With a Pro account you can rent a safe-deposit box located in one of our branch</h1>
                     <ul class="content-list">

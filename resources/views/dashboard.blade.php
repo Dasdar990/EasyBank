@@ -42,7 +42,6 @@
             </div>
             <span>LOADING...</span>
         </div>
-
         <div class="menu">
             <img class="logo" src="images/logo.svg" alt="Logo">
             <div class="menu-items-container">
@@ -281,11 +280,6 @@
                         <h1>Personal information</h1>
                     </div>
                     <div class="profile-image-container">
-                        <img src="images/profile.png" alt="Profile Image">
-                        <div class="profile-subtext">
-                            <img src="images/icons/edit.svg" alt="Edit image">
-                            <h3>Edit profile image</h3>
-                        </div>
                     </div>
                     <div class="personal-info-container">
                     </div>
@@ -307,7 +301,7 @@
                             <img src="images/icons/phone.svg" alt="Phone Icon">
                             <span>Change phone number</span>
                         </div>
-                        <div class="info-row">
+                        <div class="info-row" id="access_logs">
                             <img src="images/icons/summary.svg" alt="Summary Icon">
                             <span>Show access logs</span>
                         </div>

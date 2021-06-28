@@ -9,11 +9,9 @@ Class User extends Model{
         'CF','Email','Name','Surname','Residence','Phone','Passwd','Dob'
     ];
 
-    
     public function subscription(){
         return $this->hasOne("Subscription", "CF");
     }
-    
 };
 
 ?>

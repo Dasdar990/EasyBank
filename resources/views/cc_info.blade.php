@@ -23,5 +23,10 @@
         <span>Activation date</span>
         <span>{{$ActivationDate}}</span>
     </div>
-    <div class='button' data-num={{$Number}} data-active="{{$Active}}">Set as favorite</div>
+    @if ($Favorite !== 1)
+    <div class='button favorite' data-num={{$Number}}>Set as favorite</div>
+    @endif
+    @if ($Type === 'Debit')
+    <div class='button delete' data-num={{$Number}} data-active="{{$Active}}">Delete this card</div>
+    @endif
 </div>

@@ -23,7 +23,7 @@ html[data-overflow="auto"] {
 
 body {
     background: #121212;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-weight: bold;
     font-size: 16px;
     color: rgba(255, 255, 255, 0.89);
@@ -58,7 +58,7 @@ a {
 }
 
 a:hover {
-    color: #2BC56B;
+    color: #2bc56b;
 }
 
 .button:hover {
@@ -66,7 +66,7 @@ a:hover {
 }
 
 .active {
-    color: #2BC56B;
+    color: #2bc56b;
     font-weight: 700;
 }
 
@@ -115,7 +115,7 @@ nav {
 /**/
 
 .button {
-    background: #2BC56B;
+    background: #2bc56b;
     border-radius: 5px;
     color: #000000;
     padding: 8px 27px;
@@ -160,12 +160,11 @@ header {
 }
 
 .content-img {
-    width: 300px;
+    width: 400px;
 }
 
-#vault {
-    max-width: 400px;
-    max-height: 350px;
+.content-img.phone {
+    width: 300px;
 }
 
 .h-container .cc {
@@ -477,11 +476,11 @@ footer img {
     z-index: 5;
 }
 
-.mobile-menu[data-active='true'] {
+.mobile-menu[data-active="true"] {
     display: flex;
 }
 
-.mobile-menu[data-active='false'] {
+.mobile-menu[data-active="false"] {
     display: none;
 }
 
@@ -496,7 +495,7 @@ footer img {
 }
 
 a[data-active="true"] {
-    color: #2BC56B;
+    color: #2bc56b;
     font-weight: 700;
 }
 
@@ -514,6 +513,43 @@ a[data-active="true"] {
 
 /*MEDIA QUERIES*/
 
+@media screen and (max-width: 1500px) {
+    .h-container {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .h-container {
+        justify-content: center;
+    }
+    .container {
+        padding: 15vh 10px;
+    }
+    .content-img {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .h-container {
+        flex-direction: column;
+    }
+    .title-container {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .h-container h1 {
+        max-width: 580px;
+        text-align: center;
+    }
+    .mockup-container {
+        margin-top: 70px;
+    }
+}
+
 @media screen and (max-width: 1000px) {
     html[data-overflow="hidden"] {
         overflow-y: hidden;
@@ -526,6 +562,7 @@ a[data-active="true"] {
     }
     .container {
         padding: 15vh 0;
+        padding-bottom: 0;
     }
     .navigation a,
     .navigation .button {
@@ -538,10 +575,6 @@ a[data-active="true"] {
     body {
         font-size: 14px;
     }
-    #vault {
-        margin-bottom: auto;
-        margin-top: 0;
-    }
     .content-list {
         padding: 5px 0;
     }
@@ -550,6 +583,9 @@ a[data-active="true"] {
 @media screen and (max-width: 770px) {
     body {
         font-size: 16px;
+    }
+    .container {
+        padding-top: 0;
     }
     .h-container,
     .container {
@@ -561,7 +597,10 @@ a[data-active="true"] {
         margin-top: 15vw;
     }
     .content {
-        font-size: 14px
+        font-size: 14px;
+    }
+    .content-img {
+        width: 50vw;
     }
     #discover {
         max-width: 100%;
@@ -610,6 +649,14 @@ a[data-active="true"] {
     }
     .container {
         padding-top: 50px;
+    }
+    .content-img.phone {
+        width: 220px;
+    }
+    .h-container .cc {
+        min-width: 270px;
+        min-height: 120px;
+        font-size: 20px;
     }
     .card-row .text-container {
         width: 100%;
