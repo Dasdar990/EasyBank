@@ -8,4 +8,9 @@ This website uses Laravel framework for the backend and vanilla JS, CSS and HTML
 
 This website uses Laravel for backend, so it must be installed to    make it works. To install that please refer to the official [Laravel    documentation](https://laravel.com/docs/8.x/installation).
 
-After cloning the repo, the Database structure must be imported. To do that simply use the provided **easy_bank.sql** file. 
+After cloning the repository, the Database structure must be imported. To do that simply use the provided **easy_bank.sql** file. 
+
+## Testing
+To test the dashboard area, credentials are needed:
+
+ - johndoe@gmail.com : Test1234
