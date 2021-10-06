@@ -13,4 +13,4 @@ After cloning the repository, the Database structure must be imported. To do tha
 ## Testing
 To test the dashboard area, credentials are needed:
 
- - johndoe@gmail.com : Test1234
+ - johndoe@gmail.com : Test1234.
